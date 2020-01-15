@@ -39,8 +39,8 @@
 
 ## Contributors
 
-* [ < INSERT NAME HERE > ](INSERT_PROFILE_URL_HERE)
-* [ < INSERT NAME HERE > ](INSERT_PROFILE_URL_HERE)
+* [ < Angad > ](https://github.com/L04DB4L4NC3R)
+* [ < Kush > ](https://github.com/D-E-F-E-A-T/)
 
 
 
