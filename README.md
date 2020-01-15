@@ -39,8 +39,8 @@
 
 ## Contributors
 
-* [ < Angad > ](https://github.com/L04DB4L4NC3R)
-* [ < Kush > ](https://github.com/D-E-F-E-A-T/)
+* [ Angad ](https://github.com/L04DB4L4NC3R)
+* [ Kush ](https://github.com/D-E-F-E-A-T/)
 
 
 
