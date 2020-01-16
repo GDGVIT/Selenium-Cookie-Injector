@@ -44,6 +44,7 @@ for cookie in cookies:
 ## Functionalities
 - [x] Cookie adding from other Browsers cookie
 - [ ] Explicit and Selected Cookie Addition
+- [ ] Passwords Addition from other Browsers to Selenium Browser
 
 <br>
 
