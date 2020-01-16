@@ -1,35 +1,43 @@
 <p align="center">
 	<img src="https://user-images.githubusercontent.com/30529572/72455010-fb38d400-37e7-11ea-9c1e-8cdeb5f5906e.png" />
-	<h2 align="center"> < Insert Project Title Here > </h2>
-	<h4 align="center"> < Insert Project Description Here > <h4>
+	<h2 align="center"> Selenium Cookie Injector </h2>
+	<h4 align="center"> Inserts Cookie from your all other web browsers into the selenium. It may include session ids, tokens etc. <h4>
 </p>
 
 ---
-[![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](INSERT_LINK_FOR_DOCS_HERE) 
-  [![UI ](https://img.shields.io/badge/User%20Interface-Link%20to%20UI-orange?style=flat-square&logo=appveyor)](INSERT_UI_LINK_HERE)
 
 
-## Functionalities
-- [ ]  < insert functionality >
-- [ ]  < insert functionality >
-- [ ]  < insert functionality >
-- [ ]  < insert functionality >
+
+
 
 <br>
 
 
 ## Instructions to run
 
-* < directions to install > 
+* directions to install
 ```bash
-< pip install SeleniumCookie==0.1 >
+pip install SeleniumCookie==0.1
 ```
 
-* < directions to execute >
+* directions to execute
 
 ```bash
-< insert code >
+from selenium import webdriver
+from SeleniumCookie import cookie_injector
+
+driver = webdriver.Chrome('cdr/chromedriver')
+driver.get("https://www.google.com")
+
+#COOKIE INJECTION
+cookies = cookie_injector.inject_cookie()
+for cookie in cookies:
+	try:
+		driver.add_cookie(cookie)
+	except:
+		pass
 ```
+[![DOCS](https://img.shields.io/badge/HelpersGuide-see%20help-green?style=flat-square&logo=appveyor)](https://github.com/D-E-F-E-A-T/Selenium-Cookie-Injector/blob/master/helpers.md)
 
 <br>
 
