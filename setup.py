@@ -8,7 +8,7 @@ setup(
   author = 'THANKSTOALL',
   author_email = 'pchackers18@gmail.com',
   url = 'https://github.com/D-E-F-E-A-T/Selenium-Cookie-Injector',
-  download_url = 'https://github.com/user/reponame/archive/v_01.tar.gz',    # I explain this later on
+  download_url = 'https://github.com/D-E-F-E-A-T/Selenium-Cookie-Injector/archive/v_01.tar.gz',
   keywords = ['SELENIUM', 'COOKIE'],
   install_requires=[
 		'pyaes','pbkdf2','keyring','lz4', 'configparser'
