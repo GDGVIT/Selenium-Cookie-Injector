@@ -41,6 +41,13 @@ for cookie in cookies:
 
 <br>
 
+## Functionalities
+- [x] Cookie adding from other Browsers cookie
+- [ ] Explicit and Selected Cookie Addition
+
+<br>
+
+
 ## Contributors
 
 * [ Angad ](https://github.com/L04DB4L4NC3R)
