@@ -334,6 +334,26 @@ class Firefox:
 
         return cj
 
+def create_cookie(host, path, secure, expires, name, value):
+    """Shortcut function to create a cookie
+    """
+    return http.cookiejar.Cookie(0, name, value, None, False, host, host.startswith('.'), host.startswith('.'), path,
+                                 True, secure, expires, False, None, None, {})
+
+
+def chrome(cookie_file=None, domain_name=""):
+    """Returns a cookiejar of the cookies used by Chrome. Optionally pass in a
+    domain name to only load cookies from the specified domain
+    """
+    return Chrome(cookie_file, domain_name).load()
+
+
+def firefox(cookie_file=None, domain_name=""):
+    """Returns a cookiejar of the cookies and sessions used by Firefox. Optionally
+    pass in a domain name to only load cookies from the specified domain
+    """
+    return Firefox(cookie_file, domain_name).load()
+
 
 def load(domain_name=""):
     """Try to load cookies from all supported browsers and return combined cookiejar
