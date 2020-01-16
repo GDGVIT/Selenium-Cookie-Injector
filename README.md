@@ -20,13 +20,9 @@
 
 ## Instructions to run
 
-* Pre-requisites:
-	-  < insert pre-requisite >
-	-  < insert pre-requisite >
-
 * < directions to install > 
 ```bash
-< insert code >
+< pip install SeleniumCookie==0.1 >
 ```
 
 * < directions to execute >
