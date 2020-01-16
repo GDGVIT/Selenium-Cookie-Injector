@@ -51,8 +51,8 @@ for cookie in cookies:
 ## Contributors
 
 * [ Angad ](https://github.com/L04DB4L4NC3R)
+* [ Ubaid ](https://github.com/Geek-ubaid/)
 * [ Kush ](https://github.com/D-E-F-E-A-T/)
-
 
 
 <br>
