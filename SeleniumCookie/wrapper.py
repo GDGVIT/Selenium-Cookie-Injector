@@ -16,7 +16,6 @@ try:
 except ImportError:
     import simplejson as json
 try:
-
     from pysqlite2 import dbapi2 as sqlite3
 except ImportError:
     import sqlite3
@@ -36,12 +35,15 @@ class BrowserCookieError(Exception):
 def create_local_copy(cookie_file):
 
     if os.path.exists(cookie_file):
-
         tmp_cookie_file = tempfile.NamedTemporaryFile(suffix='.sqlite').name
-        open(tmp_cookie_file, 'wb').write(open(cookie_file, 'rb').read())
-        return tmp_cookie_file
+        with open(tmp_cookie_file, 'wb') as tmp_c_f:
+            with open(cookie_file, 'rb') as c_f:
+                cookie_file_read = c_f.read()
+            tmp_c_f.write(cookie_file_read)
+            return tmp_cookie_file
     else:
-        raise BrowserCookieError('Can not find cookie file at: ' + cookie_file)
+        raise BrowserCookieError(
+            'Can not find cookie file at: '.format(cookie_file))
 
 
 def windows_group_policy_path():
@@ -98,6 +100,9 @@ def crypt_unprotect_data(
 
 
 class Chrome:
+    """Cookie Extraction class for Chrome
+    """
+
     def __init__(self, cookie_file=None, domain_name=""):
         self.salt = b'saltysalt'
         self.iv = b' ' * 16
@@ -211,6 +216,9 @@ class Chrome:
 
 
 class Firefox:
+    """Cookie Extraction class for Firefox
+    """
+
     def __init__(self, cookie_file=None, domain_name=""):
         self.tmp_cookie_file = None
         cookie_file = cookie_file or self.find_cookie_file()
@@ -246,6 +254,8 @@ class Firefox:
         return None
 
     def find_cookie_file(self):
+        """Self Explanatory
+        """
         if sys.platform == 'darwin':
             profiles_ini_paths = glob.glob(os.path.expanduser(
                 '~/Library/Application Support/Firefox/profiles.ini'))
@@ -333,6 +343,7 @@ class Firefox:
         self.__add_session_cookies_lz4(cj)
 
         return cj
+
 
 def create_cookie(host, path, secure, expires, name, value):
     """Shortcut function to create a cookie

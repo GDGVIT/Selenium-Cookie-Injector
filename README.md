@@ -6,21 +6,17 @@
 
 ---
 
-
-
-
-
 <br>
-
 
 ## Instructions to run
 
-* directions to install
+- directions to install
+
 ```bash
 pip install SeleniumCookie==0.1
 ```
 
-* directions to execute
+- directions to execute
 
 ```bash
 from selenium import webdriver
@@ -37,24 +33,50 @@ for cookie in cookies:
 	except:
 		pass
 ```
-[![DOCS](https://img.shields.io/badge/HelpersGuide-see%20help-green?style=flat-square&logo=appveyor)](https://github.com/D-E-F-E-A-T/Selenium-Cookie-Injector/blob/master/helpers.md)
+
+</br>
+
+## Whatsapp AutoLogin after one-time QR-Scan
+
+```bash
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+chrome_options = Options()
+chrome_options.add_argument("--user-data-dir=chrome-data")
+driver = webdriver.Chrome('cdr/chromedriver', options=chrome_options)
+chrome_options.add_argument("user-data-dir=chrome-data")
+url = 'https://web.whatsapp.com/'
+driver.get(url)
+```
 
 <br>
 
 ## Functionalities
+
 - [x] Cookie adding from other Browsers cookie
 - [ ] Explicit and Selected Cookie Addition
 - [ ] Passwords Addition from other Browsers to Selenium Browser
 
 <br>
 
+</br>
+
+## Checking for added Cookies
+
+- Run the above script
+- Now in Chrome Search Bar: chrome://settings/siteData
+- Added Cookies can be seen now
+- Additon of cookie subject to it's various parameters and data it has
+- In my test 279 (119 websites) cookies were injected and 2924 were rejected
+
+</br>
 
 ## Contributors
 
-* [ Angad ](https://github.com/L04DB4L4NC3R)
-* [ Ubaid ](https://github.com/Geek-ubaid/)
-* [ Kush ](https://github.com/D-E-F-E-A-T/)
-
+- [ Angad ](https://github.com/L04DB4L4NC3R)
+- [ Ubaid ](https://github.com/Geek-ubaid/)
+- [ Kush ](https://github.com/D-E-F-E-A-T/)
 
 <br>
 <br>
@@ -62,4 +84,3 @@ for cookie in cookies:
 <p align="center">
 	Made with :heart: by DSC VIT
 </p>
-
