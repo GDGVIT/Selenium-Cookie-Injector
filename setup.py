@@ -5,7 +5,7 @@ setup(
   version = '0.1',
   license='MIT',
   description = 'COOKIE INJECTION FOR SELENIUM',
-  author = 'D-E-F-E-A-T, L04DB4L4NC3R',
+  author = 'D-E-F-E-A-T',
   author_email = 'pchackers18@gmail.com',
   url = 'https://github.com/D-E-F-E-A-T/Selenium-Cookie-Injector',
   download_url = 'https://github.com/D-E-F-E-A-T/Selenium-Cookie-Injector/archive/v_01.tar.gz',
