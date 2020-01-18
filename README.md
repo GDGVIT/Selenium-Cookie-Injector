@@ -70,6 +70,10 @@ driver.get(url)
 
 </br>
 
+> [Chromedriver Download](https://chromedriver.chromium.org/downloads)
+
+</br>
+
 ## Contributors
 
 - [ Angad ](https://github.com/L04DB4L4NC3R)
