@@ -60,12 +60,6 @@ url = 'https://web.whatsapp.com/'
 driver.get(url)
 ```
 
-<br>
-
-
-
-</br>
-
 - Checking for added Cookies
 
 	- Run the above script
