@@ -8,6 +8,14 @@
 
 <br>
 
+## Functionalities
+
+- [x] Cookie adding from other Browsers cookie
+- [ ] Explicit and Selected Cookie Addition
+- [ ] Passwords Addition from other Browsers to Selenium Browser
+
+<br>
+
 ## Instructions to run
 
 - directions to install
@@ -18,7 +26,7 @@ pip install SeleniumCookie==0.1
 
 - directions to execute
 
-```bash
+```python
 from selenium import webdriver
 from SeleniumCookie import cookie_injector
 
@@ -36,9 +44,11 @@ for cookie in cookies:
 
 </br>
 
-## Whatsapp AutoLogin after one-time QR-Scan
+## Test
 
-```bash
+- Whatsapp AutoLogin after one-time QR-Scan
+
+```python
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -50,25 +60,13 @@ url = 'https://web.whatsapp.com/'
 driver.get(url)
 ```
 
-<br>
+- Checking for added Cookies
 
-## Functionalities
-
-- [x] Cookie adding from other Browsers cookie
-- [ ] Explicit and Selected Cookie Addition
-- [ ] Passwords Addition from other Browsers to Selenium Browser
-
-<br>
-
-</br>
-
-## Checking for added Cookies
-
-- Run the above script
-- Now in Chrome Search Bar: chrome://settings/siteData
-- Added Cookies can be seen now
-- Additon of cookie subject to it's various parameters and data it has
-- In my test 279 (119 websites) cookies were injected and 2924 were rejected
+	- Run the above script
+	- Now in Chrome Search Bar: chrome://settings/siteData
+	- Added Cookies can be seen now
+	- Additon of cookie subject to it's various parameters and data it has
+	- In my test 279 (119 websites) cookies were injected and 2924 were rejected
 
 </br>
 
