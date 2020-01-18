@@ -1,48 +1,82 @@
 <p align="center">
 	<img src="https://user-images.githubusercontent.com/30529572/72455010-fb38d400-37e7-11ea-9c1e-8cdeb5f5906e.png" />
-	<h2 align="center"> < Insert Project Title Here > </h2>
-	<h4 align="center"> < Insert Project Description Here > <h4>
+	<h2 align="center"> Selenium Cookie Injector </h2>
+	<h4 align="center"> Inserts Cookie from your all other web browsers into the selenium. It may include session ids, tokens etc. <h4>
 </p>
 
 ---
-[![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](INSERT_LINK_FOR_DOCS_HERE) 
-  [![UI ](https://img.shields.io/badge/User%20Interface-Link%20to%20UI-orange?style=flat-square&logo=appveyor)](INSERT_UI_LINK_HERE)
-
-
-## Functionalities
-- [ ]  < insert functionality >
-- [ ]  < insert functionality >
-- [ ]  < insert functionality >
-- [ ]  < insert functionality >
 
 <br>
-
 
 ## Instructions to run
 
-* Pre-requisites:
-	-  < insert pre-requisite >
-	-  < insert pre-requisite >
+- directions to install
 
-* < directions to install > 
 ```bash
-< insert code >
+pip install SeleniumCookie==0.1
 ```
 
-* < directions to execute >
+- directions to execute
 
 ```bash
-< insert code >
+from selenium import webdriver
+from SeleniumCookie import cookie_injector
+
+driver = webdriver.Chrome('cdr/chromedriver')
+driver.get("https://www.google.com")
+
+#COOKIE INJECTION
+cookies = cookie_injector.inject_cookie()
+for cookie in cookies:
+	try:
+		driver.add_cookie(cookie)
+	except:
+		pass
+```
+
+</br>
+
+## Whatsapp AutoLogin after one-time QR-Scan
+
+```bash
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+chrome_options = Options()
+chrome_options.add_argument("--user-data-dir=chrome-data")
+driver = webdriver.Chrome('cdr/chromedriver', options=chrome_options)
+chrome_options.add_argument("user-data-dir=chrome-data")
+url = 'https://web.whatsapp.com/'
+driver.get(url)
 ```
 
 <br>
 
+## Functionalities
+
+- [x] Cookie adding from other Browsers cookie
+- [ ] Explicit and Selected Cookie Addition
+- [ ] Passwords Addition from other Browsers to Selenium Browser
+
+<br>
+
+</br>
+
+## Checking for added Cookies
+
+- Run the above script
+- Now in Chrome Search Bar: chrome://settings/siteData
+- Added Cookies can be seen now
+- Additon of cookie subject to it's various parameters and data it has
+- In my test 279 (119 websites) cookies were injected and 2924 were rejected
+
+</br>
+
 ## Contributors
 
-* [ < INSERT NAME HERE > ](INSERT_PROFILE_URL_HERE)
-* [ < INSERT NAME HERE > ](INSERT_PROFILE_URL_HERE)
-
-
+- [ Angad ](https://github.com/L04DB4L4NC3R)
+- [ Ubaid ](https://github.com/Geek-ubaid/)
+- [ Kush ](https://github.com/D-E-F-E-A-T/)
 
 <br>
 <br>
@@ -50,4 +84,3 @@
 <p align="center">
 	Made with :heart: by DSC VIT
 </p>
-
