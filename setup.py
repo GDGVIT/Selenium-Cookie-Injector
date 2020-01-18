@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'SeleniumCookie',
   packages = ['SeleniumCookie'],
-  version = '0.1',
+  version = '0.2',
   license='MIT',
   description = 'COOKIE INJECTION FOR SELENIUM',
   author = 'D-E-F-E-A-T',
