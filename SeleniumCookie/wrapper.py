@@ -171,7 +171,7 @@ class Chrome:
         for item in cur.fetchall():
             host, path, secure, expires, name = item[:5]
             if item[3] != 0:
-                offset = min(int(item[3]), 265000000000000000)
+                offset = min(int(item[3]), 32536799999000000)
                 delta = datetime.timedelta(microseconds=offset)
                 expires = epoch_start + delta
                 expires = expires.timestamp()
