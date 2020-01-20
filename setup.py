@@ -4,7 +4,7 @@ from distutils.core import setup
 setup(
     name='SeleniumCookies',
     packages=['SeleniumCookies'],
-    version='0.3',
+    version='0.4',
     license='MIT',
     description='COOKIE INJECTION FOR SELENIUM',
     author='D-E-F-E-A-T',
