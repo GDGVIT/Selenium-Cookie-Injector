@@ -1,2 +1,2 @@
-from SeleniumCookie import wrapper
-from SeleniumCookie import cookie_injector
+from SeleniumCookies import wrapper
+from SeleniumCookies import cookie_injector
