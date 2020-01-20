@@ -1,5 +1,5 @@
 import unittest
-from SeleniumCookie.wrapper import *
+from SeleniumCookies.wrapper import *
 
 try:
     from selenium import webdriver
