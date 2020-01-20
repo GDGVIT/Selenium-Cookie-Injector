@@ -2,8 +2,8 @@ import setuptools
 from distutils.core import setup
 
 setup(
-    name='SeleniumCookie',
-    packages=['SeleniumCookie'],
+    name='SeleniumCookies',
+    packages=['SeleniumCookies'],
     version='0.2',
     license='MIT',
     description='COOKIE INJECTION FOR SELENIUM',
