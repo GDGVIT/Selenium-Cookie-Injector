@@ -3,9 +3,11 @@
 	<h2 align="center"> Selenium Cookie Injector </h2>
 	<h4 align="center"> Inserts Cookie from your all other web browsers into the selenium. It may include session ids, tokens etc. <h4>
 </p>
+<p align="center">
+	<a align="center" href="https://pypi.org/project/SeleniumCookies"><img src="https://badge.fury.io/py/SeleniumCookies.svg" alt="PyPI version"></a>
+</p>
 
 ---
-
 <br>
 
 ## Functionalities
