@@ -1,4 +1,4 @@
 try:
-	from tests import tests
+    from tests import tests
 except:
-	import tests
+    import tests

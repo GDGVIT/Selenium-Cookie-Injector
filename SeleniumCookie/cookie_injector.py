@@ -5,7 +5,6 @@ try:
 except:
     import wrapper
 
-
 __doc__ = 'Process cookies from cookiejar to be injected in selenium'
 
 cookies = []
