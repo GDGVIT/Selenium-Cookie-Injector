@@ -33,7 +33,6 @@ class BrowserCookieError(Exception):
 
 
 def create_local_copy(cookie_file):
-
     if os.path.exists(cookie_file):
         tmp_cookie_file = tempfile.NamedTemporaryFile(suffix='.sqlite').name
         with open(tmp_cookie_file, 'wb') as tmp_c_f:
@@ -47,7 +46,6 @@ def create_local_copy(cookie_file):
 
 
 def windows_group_policy_path():
-
     from winreg import ConnectRegistry, HKEY_LOCAL_MACHINE, OpenKeyEx, QueryValueEx, REG_EXPAND_SZ, REG_SZ
     try:
         root = ConnectRegistry(None, HKEY_LOCAL_MACHINE)
@@ -66,7 +64,6 @@ def windows_group_policy_path():
 def crypt_unprotect_data(
         cipher_text=b'', entropy=b'', reserved=None, prompt_struct=None
 ):
-
     import ctypes
     import ctypes.wintypes
 
@@ -117,7 +114,7 @@ class Chrome:
             self.key = PBKDF2(my_pass, self.salt,
                               iterations=iterations).read(self.length)
             cookie_file = cookie_file \
-                or os.path.expanduser('~/Library/Application Support/Google/Chrome/Default/Cookies')
+                          or os.path.expanduser('~/Library/Application Support/Google/Chrome/Default/Cookies')
 
         elif sys.platform.startswith('linux'):
 
@@ -126,15 +123,18 @@ class Chrome:
             self.key = PBKDF2(my_pass, self.salt,
                               iterations=iterations).read(self.length)
             cookie_file = cookie_file \
-                or os.path.expanduser('~/.config/google-chrome/Default/Cookies') \
-                or os.path.expanduser('~/.config/chromium/Default/Cookies') \
-                or os.path.expanduser('~/.config/google-chrome-beta/Default/Cookies')
+                          or os.path.expanduser('~/.config/google-chrome/Default/Cookies') \
+                          or os.path.expanduser('~/.config/chromium/Default/Cookies') \
+                          or os.path.expanduser('~/.config/google-chrome-beta/Default/Cookies')
         elif sys.platform == "win32":
 
             cookie_file = cookie_file or windows_group_policy_path() \
-                or glob.glob(os.path.join(os.getenv('APPDATA', ''), '..\Local\\Google\\Chrome\\User Data\\Default\\Cookies')) \
-                or glob.glob(os.path.join(os.getenv('LOCALAPPDATA', ''), 'Google\\Chrome\\User Data\\Default\\Cookies')) \
-                or glob.glob(os.path.join(os.getenv('APPDATA', ''), 'Google\\Chrome\\User Data\\Default\\Cookies'))
+                          or glob.glob(
+                os.path.join(os.getenv('APPDATA', ''), '..\Local\\Google\\Chrome\\User Data\\Default\\Cookies')) \
+                          or glob.glob(
+                os.path.join(os.getenv('LOCALAPPDATA', ''), 'Google\\Chrome\\User Data\\Default\\Cookies')) \
+                          or glob.glob(
+                os.path.join(os.getenv('APPDATA', ''), 'Google\\Chrome\\User Data\\Default\\Cookies'))
         else:
             raise BrowserCookieError(
                 "OS not recognized. Works on Chrome for OSX, Windows, and Linux.")
@@ -263,30 +263,30 @@ class Firefox:
                 '~/Library/Application Support/Firefox/Profiles/{0}/cookies.sqlite'.format(profiles_ini_path)))
             cookie_files = glob.glob(
                 os.path.expanduser('~/Library/Application Support/Firefox/Profiles/*default/cookies.sqlite')) \
-                or glob.glob(profiles_ini_path)
+                           or glob.glob(profiles_ini_path)
         elif sys.platform.startswith('linux'):
             profiles_ini_paths = glob.glob(
                 os.path.expanduser('~/.mozilla/firefox/profiles.ini'))
             profiles_ini_path = self.get_default_profile(
                 profiles_ini_paths, os.path.expanduser('~/.mozilla/firefox/{0}/cookies.sqlite'))
             cookie_files = glob.glob(os.path.expanduser('~/.mozilla/firefox/*default*/cookies.sqlite')) \
-                or glob.glob(profiles_ini_path)
+                           or glob.glob(profiles_ini_path)
         elif sys.platform == 'win32':
             profiles_ini_paths = glob.glob(os.path.join(os.environ.get('APPDATA', ''),
                                                         'Mozilla/Firefox/profiles.ini')) \
-                or glob.glob(os.path.join(os.environ.get('LOCALAPPDATA', ''),
-                                          'Mozilla/Firefox/profiles.ini'))
+                                 or glob.glob(os.path.join(os.environ.get('LOCALAPPDATA', ''),
+                                                           'Mozilla/Firefox/profiles.ini'))
             profiles_ini_path = self.get_default_profile(profiles_ini_paths, os.path.join(os.environ.get('APPDATA', ''),
                                                                                           "Mozilla/Firefox/{0}/cookies.sqlite"))
             cookie_files = glob.glob(os.path.join(os.environ.get('PROGRAMFILES', ''),
                                                   'Mozilla Firefox/profile/cookies.sqlite')) \
-                or glob.glob(os.path.join(os.environ.get('PROGRAMFILES(X86)', ''),
-                                          'Mozilla Firefox/profile/cookies.sqlite')) \
-                or glob.glob(os.path.join(os.environ.get('APPDATA', ''),
-                                          'Mozilla/Firefox/Profiles/*default*/cookies.sqlite')) \
-                or glob.glob(os.path.join(os.environ.get('LOCALAPPDATA', ''),
-                                          'Mozilla/Firefox/Profiles/*default*/cookies.sqlite')) \
-                or glob.glob(profiles_ini_path)
+                           or glob.glob(os.path.join(os.environ.get('PROGRAMFILES(X86)', ''),
+                                                     'Mozilla Firefox/profile/cookies.sqlite')) \
+                           or glob.glob(os.path.join(os.environ.get('APPDATA', ''),
+                                                     'Mozilla/Firefox/Profiles/*default*/cookies.sqlite')) \
+                           or glob.glob(os.path.join(os.environ.get('LOCALAPPDATA', ''),
+                                                     'Mozilla/Firefox/Profiles/*default*/cookies.sqlite')) \
+                           or glob.glob(profiles_ini_path)
         else:
             raise BrowserCookieError(
                 'Unsupported operating system: ' + sys.platform)
