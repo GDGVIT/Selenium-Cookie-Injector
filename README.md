@@ -61,9 +61,8 @@ driver.get(url)
 ```
 
 - Checking for added Cookies
-
-      	- Run the above script
-      	- Now in Chrome Search Bar: chrome://settings/siteData
+	- Run the above script
+	- Now in Chrome Search Bar: chrome://settings/siteData
       	- Added Cookies can be seen now
       	- Additon of cookie subject to it's various parameters and data it has
       	- In my test 279 (119 websites) cookies were injected and 2924 were rejected
