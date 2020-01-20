@@ -1,3 +1,4 @@
+import setuptools
 from distutils.core import setup
 
 setup(
@@ -12,7 +13,7 @@ setup(
     download_url='https://github.com/D-E-F-E-A-T/Selenium-Cookie-Injector/archive/v_01.tar.gz',
     keywords=['SELENIUM', 'COOKIE'],
     install_requires=[
-        'pyaes', 'pbkdf2', 'keyring', 'lz4', 'configparser'
+        'setuptools', 'wheel', 'pyaes', 'pbkdf2', 'keyring', 'lz4', 'configparser'
     ],
     classifiers=[
         'Development Status :: 4 - Beta',
