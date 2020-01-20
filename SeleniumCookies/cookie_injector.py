@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
 try:
-    from SeleniumCookie import wrapper
+    from SeleniumCookies import wrapper
 except:
     import wrapper
 
