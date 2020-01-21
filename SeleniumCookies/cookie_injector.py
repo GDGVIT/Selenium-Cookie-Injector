@@ -1,10 +1,9 @@
 # -*- coding:utf-8 -*-
 
 try:
-    from SeleniumCookie import wrapper
+    from SeleniumCookies import wrapper
 except:
     import wrapper
-
 
 __doc__ = 'Process cookies from cookiejar to be injected in selenium'
 

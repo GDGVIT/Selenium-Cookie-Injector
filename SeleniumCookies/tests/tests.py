@@ -1,5 +1,5 @@
 import unittest
-from SeleniumCookie.wrapper import *
+from SeleniumCookies.wrapper import *
 
 try:
     from selenium import webdriver
@@ -22,7 +22,8 @@ class TestSel(unittest.TestCase):
 
     def test_createCookie(self):
         self.assertEqual(str(type(create_cookie(
-            'kush', '/', 'false', 10, 'hola', '121'))), "<class 'http.cookiejar.Cookie'>"), "Return Type not http.cookiejar.Cookie"
+            'kush', '/', 'false', 10, 'hola', '121'))),
+            "<class 'http.cookiejar.Cookie'>"), "Return Type not http.cookiejar.Cookie"
 
     def test_loadCookie(self):
         self.assertNotEqual(load, None), "[!] No Cookie to Load"

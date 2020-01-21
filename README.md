@@ -3,9 +3,11 @@
 	<h2 align="center"> Selenium Cookie Injector </h2>
 	<h4 align="center"> Inserts Cookie from your all other web browsers into the selenium. It may include session ids, tokens etc. <h4>
 </p>
+<p align="center">
+	<a align="center" href="https://pypi.org/project/SeleniumCookies"><img src="https://badge.fury.io/py/SeleniumCookies.svg" alt="PyPI version"></a>
+</p>
 
 ---
-
 <br>
 
 ## Functionalities
@@ -61,12 +63,11 @@ driver.get(url)
 ```
 
 - Checking for added Cookies
-
-      	- Run the above script
-      	- Now in Chrome Search Bar: chrome://settings/siteData
-      	- Added Cookies can be seen now
-      	- Additon of cookie subject to it's various parameters and data it has
-      	- In my test 279 (119 websites) cookies were injected and 2924 were rejected
+	- Run the above script
+	- Now in Chrome Search Bar: chrome://settings/siteData
+	- Added Cookies can be seen now
+	- Additon of cookie subject to it's various parameters and data it has
+	- In my test 279 (119 websites) cookies were injected and 2924 were rejected
 
 </br>
 
