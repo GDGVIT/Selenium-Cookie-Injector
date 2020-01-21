@@ -30,7 +30,7 @@ pip install SeleniumCookie==0.2
 
 ```python
 from selenium import webdriver
-from SeleniumCookie import cookie_injector
+from SeleniumCookies import cookie_injector
 
 driver = webdriver.Chrome('cdr/chromedriver')
 driver.get("https://www.google.com")
