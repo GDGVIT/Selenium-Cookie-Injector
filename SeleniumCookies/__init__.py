@@ -1,2 +1,0 @@
-from SeleniumCookies import wrapper
-from SeleniumCookies import cookie_injector
