@@ -64,7 +64,8 @@ FORMAT = "{'FileName': 'cookie_injector', 'DateTime': '%(asctime)s',
            'LevelName': '%(levelname)s', 'Message': % (message)s}"
 
 logging.basicConfig(filename='SeleniumCookies/selenium_cookies.log',
-                    filemode='a', level=LEVEL, format=FORMAT, datefmt='%d-%b-%y %H:%M:%S')
+                    filemode='a', level=LEVEL,
+                    format=FORMAT, datefmt='%d-%b-%y %H:%M:%S')
 
 cookies = []
 
@@ -78,7 +79,8 @@ def inject_cookie():
                 cookies.append(
                     _cookiejar._cookies[webname][endpoint][processed_cookie].__dict__)
     logging.info(
-        "{'StatusCode':'%s', 'Status':'%s cookies loaded'}", 2000, len(cookies))
+        "{'StatusCode':'%s', 'Status':'%s cookies loaded'}",
+        2000, len(cookies))
     return cookies
 
 

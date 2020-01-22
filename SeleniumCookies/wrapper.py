@@ -43,15 +43,24 @@ def code_message(errorcode):
     LoadChromeCookie = 2004
 
     CodeMap = {
-        5001: {'CodeType': 'Error', 'CodeMessage': 'Error in Cookie Loading'},
-        5002: {'CodeType': 'Error', 'CodeMessage': 'Error parsing firefox session JSON'},
-        5003: {'CodeType': 'Error', 'CodeMessage': 'Error parsing firefox session JSON LZ4'},
-        4001: {'CodeType': 'NotFound', 'CodeMessage': 'Failed to find Firefox Cookie'},
-        4002: {'CodeType': 'NotFound', 'CodeMessage': 'Failed to find Chrome cookie'},
-        2001: {'CodeType': 'Success', 'CodeMessage': 'Creating Cookie'},
-        2002: {'CodeType': 'Success', 'CodeMessage': 'Loading Cookie from CookieJar'},
-        2003: {'CodeType': 'Success', 'CodeMessage': 'Loading cookie from Firefox'},
-        2004: {'CodeType': 'Success', 'CodeMessage': 'Loading cookie from Chrome'},
+        5001: {'CodeType': 'Error',
+               'CodeMessage': 'Error in Cookie Loading'},
+        5002: {'CodeType': 'Error',
+               'CodeMessage': 'Error parsing firefox session JSON'},
+        5003: {'CodeType': 'Error',
+               'CodeMessage': 'Error parsing firefox session JSON LZ4'},
+        4001: {'CodeType': 'NotFound',
+               'CodeMessage': 'Failed to find Firefox Cookie'},
+        4002: {'CodeType': 'NotFound',
+               'CodeMessage': 'Failed to find Chrome cookie'},
+        2001: {'CodeType': 'Success',
+               'CodeMessage': 'Creating Cookie'},
+        2002: {'CodeType': 'Success',
+               'CodeMessage': 'Loading Cookie from CookieJar'},
+        2003: {'CodeType': 'Success',
+               'CodeMessage': 'Loading cookie from Firefox'},
+        2004: {'CodeType': 'Success',
+               'CodeMessage': 'Loading cookie from Chrome'},
     }
 
     return str({
