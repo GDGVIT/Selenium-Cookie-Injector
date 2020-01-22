@@ -23,14 +23,14 @@
 - directions to install
 
 ```bash
-pip install SeleniumCookie==0.2
+pip install SeleniumCookies==0.2
 ```
 
 - directions to execute
 
 ```python
 from selenium import webdriver
-from SeleniumCookie import cookie_injector
+from SeleniumCookies import cookie_injector
 
 driver = webdriver.Chrome('cdr/chromedriver')
 driver.get("https://www.google.com")
