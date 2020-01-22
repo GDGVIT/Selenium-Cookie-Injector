@@ -72,9 +72,11 @@ def code_message(errorcode):
 
 # Change logging Int from here
 LEVEL = logging.INFO
-FORMAT = "{'FileName': 'wrapper' ,'DateTime':'%(asctime)s', 'LevelName':'%(levelname)s', 'Message':%(message)s}"
+FORMAT = "{'FileName': 'wrapper', 'DateTime': '%(asctime)s',
+           'LevelName': '%(levelname)s', 'Message': % (message)s}"
 logging.basicConfig(filename='SeleniumCookies/selenium_cookies.log',
-                    filemode='a', level=LEVEL, format=FORMAT, datefmt='%d-%b-%y %H:%M:%S')
+                    filemode='a', level=LEVEL, format=FORMAT,
+                    datefmt='%d-%b-%y %H:%M:%S')
 
 
 class BrowserCookieError(Exception):
