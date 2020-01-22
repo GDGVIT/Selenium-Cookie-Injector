@@ -1,5 +1,7 @@
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+import logging
 import os
 import os.path
 import sys
@@ -26,6 +28,55 @@ import pyaes
 from pbkdf2 import PBKDF2
 
 __doc__ = 'Loads browser cookies into a cookiejar'
+
+
+def code_message(errorcode):
+    # Code mapping
+    LoadingFailure = 5001
+    JsonParsingError = 5002
+    LZ4ParsingError = 5003
+    FirefoxCookieNotFound = 4001
+    ChromeCookieNotFound = 4002
+    CreateCookie = 2001
+    LoadCookie = 2002
+    LoadFirefoxCookie = 2003
+    LoadChromeCookie = 2004
+
+    CodeMap = {
+        5001: {'CodeType': 'Error',
+               'CodeMessage': 'Error in Cookie Loading'},
+        5002: {'CodeType': 'Error',
+               'CodeMessage': 'Error parsing firefox session JSON'},
+        5003: {'CodeType': 'Error',
+               'CodeMessage': 'Error parsing firefox session JSON LZ4'},
+        4001: {'CodeType': 'NotFound',
+               'CodeMessage': 'Failed to find Firefox Cookie'},
+        4002: {'CodeType': 'NotFound',
+               'CodeMessage': 'Failed to find Chrome cookie'},
+        2001: {'CodeType': 'Success',
+               'CodeMessage': 'Creating Cookie'},
+        2002: {'CodeType': 'Success',
+               'CodeMessage': 'Loading Cookie from CookieJar'},
+        2003: {'CodeType': 'Success',
+               'CodeMessage': 'Loading cookie from Firefox'},
+        2004: {'CodeType': 'Success',
+               'CodeMessage': 'Loading cookie from Chrome'},
+    }
+
+    return str({
+        'Code': errorcode,
+        'CodeType': CodeMap.get(errorcode).get('CodeType'),
+        'CodeMessage': CodeMap.get(errorcode).get('CodeMessage')
+    })
+
+
+# Change logging Int from here
+LEVEL = logging.INFO
+FORMAT = "{'FileName': 'wrapper', 'DateTime': '%(asctime)s',
+           'LevelName': '%(levelname)s', 'Message': % (message)s}"
+logging.basicConfig(filename='SeleniumCookies/selenium_cookies.log',
+                    filemode='a', level=LEVEL, format=FORMAT,
+                    datefmt='%d-%b-%y %H:%M:%S')
 
 
 class BrowserCookieError(Exception):
@@ -114,7 +165,7 @@ class Chrome:
             self.key = PBKDF2(my_pass, self.salt,
                               iterations=iterations).read(self.length)
             cookie_file = cookie_file \
-                          or os.path.expanduser('~/Library/Application Support/Google/Chrome/Default/Cookies')
+                or os.path.expanduser('~/Library/Application Support/Google/Chrome/Default/Cookies')
 
         elif sys.platform.startswith('linux'):
 
@@ -123,17 +174,17 @@ class Chrome:
             self.key = PBKDF2(my_pass, self.salt,
                               iterations=iterations).read(self.length)
             cookie_file = cookie_file \
-                          or os.path.expanduser('~/.config/google-chrome/Default/Cookies') \
-                          or os.path.expanduser('~/.config/chromium/Default/Cookies') \
-                          or os.path.expanduser('~/.config/google-chrome-beta/Default/Cookies')
+                or os.path.expanduser('~/.config/google-chrome/Default/Cookies') \
+                or os.path.expanduser('~/.config/chromium/Default/Cookies') \
+                or os.path.expanduser('~/.config/google-chrome-beta/Default/Cookies')
         elif sys.platform == "win32":
 
             cookie_file = cookie_file or windows_group_policy_path() \
-                          or glob.glob(
+                or glob.glob(
                 os.path.join(os.getenv('APPDATA', ''), '..\Local\\Google\\Chrome\\User Data\\Default\\Cookies')) \
-                          or glob.glob(
+                or glob.glob(
                 os.path.join(os.getenv('LOCALAPPDATA', ''), 'Google\\Chrome\\User Data\\Default\\Cookies')) \
-                          or glob.glob(
+                or glob.glob(
                 os.path.join(os.getenv('APPDATA', ''), 'Google\\Chrome\\User Data\\Default\\Cookies'))
         else:
             raise BrowserCookieError(
@@ -263,30 +314,30 @@ class Firefox:
                 '~/Library/Application Support/Firefox/Profiles/{0}/cookies.sqlite'.format(profiles_ini_path)))
             cookie_files = glob.glob(
                 os.path.expanduser('~/Library/Application Support/Firefox/Profiles/*default/cookies.sqlite')) \
-                           or glob.glob(profiles_ini_path)
+                or glob.glob(profiles_ini_path)
         elif sys.platform.startswith('linux'):
             profiles_ini_paths = glob.glob(
                 os.path.expanduser('~/.mozilla/firefox/profiles.ini'))
             profiles_ini_path = self.get_default_profile(
                 profiles_ini_paths, os.path.expanduser('~/.mozilla/firefox/{0}/cookies.sqlite'))
             cookie_files = glob.glob(os.path.expanduser('~/.mozilla/firefox/*default*/cookies.sqlite')) \
-                           or glob.glob(profiles_ini_path)
+                or glob.glob(profiles_ini_path)
         elif sys.platform == 'win32':
             profiles_ini_paths = glob.glob(os.path.join(os.environ.get('APPDATA', ''),
                                                         'Mozilla/Firefox/profiles.ini')) \
-                                 or glob.glob(os.path.join(os.environ.get('LOCALAPPDATA', ''),
-                                                           'Mozilla/Firefox/profiles.ini'))
+                or glob.glob(os.path.join(os.environ.get('LOCALAPPDATA', ''),
+                                          'Mozilla/Firefox/profiles.ini'))
             profiles_ini_path = self.get_default_profile(profiles_ini_paths, os.path.join(os.environ.get('APPDATA', ''),
                                                                                           "Mozilla/Firefox/{0}/cookies.sqlite"))
             cookie_files = glob.glob(os.path.join(os.environ.get('PROGRAMFILES', ''),
                                                   'Mozilla Firefox/profile/cookies.sqlite')) \
-                           or glob.glob(os.path.join(os.environ.get('PROGRAMFILES(X86)', ''),
-                                                     'Mozilla Firefox/profile/cookies.sqlite')) \
-                           or glob.glob(os.path.join(os.environ.get('APPDATA', ''),
-                                                     'Mozilla/Firefox/Profiles/*default*/cookies.sqlite')) \
-                           or glob.glob(os.path.join(os.environ.get('LOCALAPPDATA', ''),
-                                                     'Mozilla/Firefox/Profiles/*default*/cookies.sqlite')) \
-                           or glob.glob(profiles_ini_path)
+                or glob.glob(os.path.join(os.environ.get('PROGRAMFILES(X86)', ''),
+                                          'Mozilla Firefox/profile/cookies.sqlite')) \
+                or glob.glob(os.path.join(os.environ.get('APPDATA', ''),
+                                          'Mozilla/Firefox/Profiles/*default*/cookies.sqlite')) \
+                or glob.glob(os.path.join(os.environ.get('LOCALAPPDATA', ''),
+                                          'Mozilla/Firefox/Profiles/*default*/cookies.sqlite')) \
+                or glob.glob(profiles_ini_path)
         else:
             raise BrowserCookieError(
                 'Unsupported operating system: ' + sys.platform)
@@ -308,7 +359,7 @@ class Firefox:
             json_data = json.loads(
                 open(self.session_file, 'rb').read().decode())
         except ValueError as e:
-            print('Error parsing firefox session JSON:', str(e))
+            logging.error(code_message(5002))
         else:
             for window in json_data.get('windows', []):
                 for cookie in window.get('cookies', []):
@@ -322,7 +373,7 @@ class Firefox:
             file_obj.read(8)
             json_data = json.loads(lz4.block.decompress(file_obj.read()))
         except ValueError as e:
-            print('Error parsing firefox session JSON LZ4:', str(e))
+            logging.error(code_message(5003))
         else:
             for cookie in json_data.get('cookies', []):
                 cj.set_cookie(Firefox.__create_session_cookie(cookie))
@@ -348,6 +399,8 @@ class Firefox:
 def create_cookie(host, path, secure, expires, name, value):
     """Shortcut function to create a cookie
     """
+    logging.debug(code_message(2001))
+
     return http.cookiejar.Cookie(0, name, value, None, False, host, host.startswith('.'), host.startswith('.'), path,
                                  True, secure, expires, False, None, None, {})
 
@@ -356,6 +409,8 @@ def chrome(cookie_file=None, domain_name=""):
     """Returns a cookiejar of the cookies used by Chrome. Optionally pass in a
     domain name to only load cookies from the specified domain
     """
+    logging.info(code_message(2004))
+
     return Chrome(cookie_file, domain_name).load()
 
 
@@ -363,6 +418,8 @@ def firefox(cookie_file=None, domain_name=""):
     """Returns a cookiejar of the cookies and sessions used by Firefox. Optionally
     pass in a domain name to only load cookies from the specified domain
     """
+    logging.info(code_message(2003))
+
     return Firefox(cookie_file, domain_name).load()
 
 
@@ -370,13 +427,15 @@ def load(domain_name=""):
     """Try to load cookies from all supported browsers and return combined cookiejar
     Optionally pass in a domain name to only load cookies from the specified domain
     """
+    logging.info(code_message(2002))
     cj = http.cookiejar.CookieJar()
     for cookie_fn in [chrome, firefox]:
         try:
             for cookie in cookie_fn(domain_name=domain_name):
                 cj.set_cookie(cookie)
         except BrowserCookieError:
-            pass
+            logging.error(code_message(5001))
+
     return cj
 
 
