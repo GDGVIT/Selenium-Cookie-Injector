@@ -29,38 +29,39 @@ from pbkdf2 import PBKDF2
 
 __doc__ = 'Loads browser cookies into a cookiejar'
 
-# CodeRejected = 1000
-# CodeInterrupted = 1001
 
-# ERRORS = []
-# ERRORS[CodeRejected] = "Rejection Exception"
-# ERRORS[CodeInterrupted] = "Interrupt Exception"
+def code_message(errorcode):
+    # Code mapping
+    LoadingFailure = 5001
+    JsonParsingError = 5002
+    LZ4ParsingError = 5003
+    FirefoxCookieNotFound = 4001
+    ChromeCookieNotFound = 4002
+    CreateCookie = 2001
+    LoadCookie = 2002
+    LoadFirefoxCookie = 2003
+    LoadChromeCookie = 2004
 
-# Code mapping
-LoadingFailure = 5001
-FirefoxCookieNotFound = 4001
-ChromeCookieNotFound = 4002
-JsonParsingError = 5002
-LZ4ParsingError = 5003
-CreateCookie = 2001
-LoadCookie = 2002
-LoadFirefoxCookie = 2003
-LoadChromeCookie = 2004
+    CodeMap = {
+        5001: {'CodeType': 'Error', 'CodeMessage': 'Error in Cookie Loading'},
+        5002: {'CodeType': 'Error', 'CodeMessage': 'Error parsing firefox session JSON'},
+        5003: {'CodeType': 'Error', 'CodeMessage': 'Error parsing firefox session JSON LZ4'},
+        4001: {'CodeType': 'NotFound', 'CodeMessage': 'Failed to find Firefox Cookie'},
+        4002: {'CodeType': 'NotFound', 'CodeMessage': 'Failed to find Chrome cookie'},
+        2001: {'CodeType': 'Success', 'CodeMessage': 'Creating Cookie'},
+        2002: {'CodeType': 'Success', 'CodeMessage': 'Loading Cookie from CookieJar'},
+        2003: {'CodeType': 'Success', 'CodeMessage': 'Loading cookie from Firefox'},
+        2004: {'CodeType': 'Success', 'CodeMessage': 'Loading cookie from Chrome'},
+    }
+
+    return str({
+        'Code': errorcode,
+        'CodeType': CodeMap.get(errorcode).get('CodeType'),
+        'CodeMessage': CodeMap.get(errorcode).get('CodeMessage')
+    })
 
 
-CodeMap = {
-    5001: 'Error in Cookie Loading',
-    5002: 'Error parsing firefox session JSON',
-    5003: 'Error parsing firefox session JSON LZ4',
-    4001: 'Failed to find Firefox Cookie',
-    4002: 'Failed to find Chrome cookie',
-    2001: 'Creating Cookie',
-    2002: 'Loading Cookie from CookieJar',
-    2003: 'Loading cookie from Firefox',
-    2004: 'Loading cookie from Chrome'
-
-}
-
+# Change logging Int from here
 LEVEL = logging.INFO
 FORMAT = "{'FileName': 'wrapper' ,'DateTime':'%(asctime)s', 'LevelName':'%(levelname)s', 'Message':%(message)s}"
 logging.basicConfig(filename='SeleniumCookies/selenium_cookies.log',
@@ -347,8 +348,7 @@ class Firefox:
             json_data = json.loads(
                 open(self.session_file, 'rb').read().decode())
         except ValueError as e:
-            logging.error("{'ErrorCode':'%s' ,'Error':'%s'}",
-                          JsonParsingError, CodeMap[JsonParsingError])
+            logging.error(code_message(5002))
         else:
             for window in json_data.get('windows', []):
                 for cookie in window.get('cookies', []):
@@ -362,8 +362,7 @@ class Firefox:
             file_obj.read(8)
             json_data = json.loads(lz4.block.decompress(file_obj.read()))
         except ValueError as e:
-            logging.error("{'ErrorCode':'%s' ,'Error':'%s'}",
-                          LZ4ParsingError, CodeMap[LZ4ParsingError])
+            logging.error(code_message(5003))
         else:
             for cookie in json_data.get('cookies', []):
                 cj.set_cookie(Firefox.__create_session_cookie(cookie))
@@ -389,8 +388,8 @@ class Firefox:
 def create_cookie(host, path, secure, expires, name, value):
     """Shortcut function to create a cookie
     """
-    logging.debug("{'StatusCode':'%s' ,'Status':'%s'}",
-                  CreateCookie, CodeMap[CreateCookie])
+    logging.debug(code_message(2001))
+
     return http.cookiejar.Cookie(0, name, value, None, False, host, host.startswith('.'), host.startswith('.'), path,
                                  True, secure, expires, False, None, None, {})
 
@@ -399,8 +398,8 @@ def chrome(cookie_file=None, domain_name=""):
     """Returns a cookiejar of the cookies used by Chrome. Optionally pass in a
     domain name to only load cookies from the specified domain
     """
-    logging.info("{'StatusCode':'%s' ,'Status':'%s'}",
-                 LoadChromeCookie, CodeMap[LoadChromeCookie])
+    logging.info(code_message(2004))
+
     return Chrome(cookie_file, domain_name).load()
 
 
@@ -408,8 +407,8 @@ def firefox(cookie_file=None, domain_name=""):
     """Returns a cookiejar of the cookies and sessions used by Firefox. Optionally
     pass in a domain name to only load cookies from the specified domain
     """
-    logging.info("{'StatusCode':'%s' ,'Status':'%s'}",
-                 LoadFirefoxCookie, CodeMap[LoadFirefoxCookie])
+    logging.info(code_message(2003))
+
     return Firefox(cookie_file, domain_name).load()
 
 
@@ -417,16 +416,15 @@ def load(domain_name=""):
     """Try to load cookies from all supported browsers and return combined cookiejar
     Optionally pass in a domain name to only load cookies from the specified domain
     """
-    logging.info("{'StatusCode':'%s' ,'Status':'%s'}",
-                 LoadCookie, CodeMap[LoadCookie])
+    logging.info(code_message(2002))
     cj = http.cookiejar.CookieJar()
     for cookie_fn in [chrome, firefox]:
         try:
             for cookie in cookie_fn(domain_name=domain_name):
                 cj.set_cookie(cookie)
         except BrowserCookieError:
-            logging.error("{'ErrorCode':'%s' ,'Error':'%s'}",
-                          LoadingFailure, CodeMap[LoadingFailure])
+            logging.error(code_message(5001))
+
     return cj
 
 

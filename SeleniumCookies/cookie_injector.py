@@ -17,31 +17,39 @@ try:
 except:
     pass
 
-LoadingFailure = 5001
-FirefoxCookieNotFound = 4001
-ChromeCookieNotFound = 4002
-JsonParsingError = 5002
-LZ4ParsingError = 5003
-CreateCookie = 2001
-LoadCookie = 2002
-LoadFirefoxCookie = 2003
-LoadChromeCookie = 2004
+
+def code_message(errorcode):
+    # Code mapping
+    LoadingFailure = 5001
+    JsonParsingError = 5002
+    LZ4ParsingError = 5003
+    FirefoxCookieNotFound = 4001
+    ChromeCookieNotFound = 4002
+    CreateCookie = 2001
+    LoadCookie = 2002
+    LoadFirefoxCookie = 2003
+    LoadChromeCookie = 2004
+
+    CodeMap = {
+        5001: {'CodeType': 'Error', 'CodeMessage': 'Error in Cookie Loading'},
+        5002: {'CodeType': 'Error', 'CodeMessage': 'Error parsing firefox session JSON'},
+        5003: {'CodeType': 'Error', 'CodeMessage': 'Error parsing firefox session JSON LZ4'},
+        4001: {'CodeType': 'NotFound', 'CodeMessage': 'Failed to find Firefox Cookie'},
+        4002: {'CodeType': 'NotFound', 'CodeMessage': 'Failed to find Chrome cookie'},
+        2001: {'CodeType': 'Success', 'CodeMessage': 'Creating Cookie'},
+        2002: {'CodeType': 'Success', 'CodeMessage': 'Loading Cookie from CookieJar'},
+        2003: {'CodeType': 'Success', 'CodeMessage': 'Loading cookie from Firefox'},
+        2004: {'CodeType': 'Success', 'CodeMessage': 'Loading cookie from Chrome'},
+    }
+
+    return str({
+        'Code': errorcode,
+        'CodeType': CodeMap.get(errorcode).get('CodeType'),
+        'CodeMessage': CodeMap.get(errorcode).get('CodeMessage')
+    })
 
 
-CodeMap = {
-    5001: 'Error in Cookie Loading',
-    5002: 'Error parsing firefox session JSON',
-    5003: 'Error parsing firefox session JSON LZ4',
-    4001: 'Failed to find Firefox Cookie',
-    4002: 'Failed to find Chrome cookie',
-    2001: 'Creating Cookie',
-    2002: 'Loading Cookie from CookieJar',
-    2003: 'Loading cookie from Firefox',
-    2004: 'Loading cookie from Chrome'
-
-}
-
-
+# Change logging Int from here.
 LEVEL = logging.INFO
 FORMAT = "{'FileName': 'cookie_injector' ,'DateTime':'%(asctime)s', 'LevelName':'%(levelname)s', 'Message':%(message)s}"
 logging.basicConfig(filename='SeleniumCookies/selenium_cookies.log',
@@ -51,8 +59,7 @@ cookies = []
 
 
 def inject_cookie():
-    logging.info("{'StatusCode':'%s' ,'Status':'%s'}",
-                 LoadCookie, CodeMap[LoadCookie])
+    logging.info(code_message(2002))
     _cookiejar = wrapper.load()
     for webname in _cookiejar._cookies:
         for endpoint in _cookiejar._cookies[webname]:
